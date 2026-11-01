@@ -52,7 +52,7 @@ function scan(cv){
 }
 function report(el,cv,want){var got=scan(cv);
  el.className='msg '+(got===want?'ok':'bad');
- el.textContent=got===want?'✔ 스캔 확인: "'+got+'" 으로 읽힙니다.':(got?'⚠ 다르게 읽힘: "'+got+'"':'✖ 화면 이미지에서 읽히지 않습니다. 모양 높이를 낮추거나 다른 그림을 써 보세요.');}
+ el.textContent=got===want?'\u2714 스캔 확인: "'+got+'" 으로 읽힙니다.':(got?'\u26a0 다르게 읽힘: "'+got+'"':'\u2716 화면 이미지에서 읽히지 않습니다. 모양 높이를 낮추거나 다른 그림을 써 보세요.');}
 
 // 기본 모양: 직접 그린 단순 실루엣(검은 부분이 모양)
 var SHAPES={
