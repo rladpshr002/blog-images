@@ -1,3 +1,4 @@
+<figure><img alt="고양이 모양 바코드와 QR코드 카드 위에 무료 바코드 생성기, 모양 바코드·QR까지라고 적힌 대표 이미지(AI 생성 일러스트)" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/barcode-tool/cover.jpg"></figure>
 <p>숫자나 글자를 넣으면 바로 바코드가 만들어집니다. 하트·고양이·집·자동차 모양 바코드와 QR코드도 같은 화면에서 만들고, <b>이미지 복사</b>나 <b>PNG 저장</b>으로 바로 쓸 수 있어요.</p>
 <div id="bcg">
 <style>
@@ -23,7 +24,7 @@
  <div class="out"><canvas id="bcg-cv"></canvas></div>
  <div class="msg" id="bcg-msg"></div>
  <div class="row"><button type="button" class="btn" id="bcg-copy">이미지 복사</button><button type="button" class="btn sub" id="bcg-png">PNG 저장</button></div>
- <div class="row"><input type="text" id="bcg-val" value="8801234567893" aria-label="바코드 내용"><select id="bcg-fmt" aria-label="바코드 형식"><option value="CODE128">CODE128 (숫자·영문)</option><option value="EAN13">EAN-13 (상품 13자리)</option><option value="CODE39">CODE39</option></select></div>
+ <div class="row"><input type="text" id="bcg-val" value="Example 1234" aria-label="바코드 내용"><select id="bcg-fmt" aria-label="바코드 형식"><option value="CODE128">CODE128 (숫자·영문)</option><option value="EAN13">EAN-13 (상품 13자리)</option><option value="CODE39">CODE39</option></select></div>
  <div class="row"><label for="bcg-shape">모양</label><select id="bcg-shape"><option value="none">없음 (일반 바코드)</option><option value="upload">내 그림 올리기</option></select>
   <input type="file" id="bcg-img" accept="image/*" style="display:none" aria-label="모양으로 쓸 그림">
   <label for="bcg-depth">모양 높이</label><input type="range" id="bcg-depth" min="40" max="160" value="100"></div>
@@ -33,7 +34,7 @@
  <div class="out"><canvas id="bcg-qcv"></canvas></div>
  <div class="msg" id="bcg-qmsg"></div>
  <div class="row"><button type="button" class="btn" id="bcg-qcopy">이미지 복사</button><button type="button" class="btn sub" id="bcg-qpng">PNG 저장</button></div>
- <div class="row"><input type="text" id="bcg-qval" value="https://enoch0.blogspot.com/" aria-label="QR코드 내용"></div>
+ <div class="row"><input type="text" id="bcg-qval" value="https://example.com" aria-label="QR코드 내용"></div>
  <div class="row"><label for="bcg-logo">가운데 로고(선택)</label><input type="file" id="bcg-logo" accept="image/*"><button type="button" class="btn sub" id="bcg-qclear">로고 빼기</button></div>
 </div>
 
@@ -102,7 +103,9 @@ function copy(cv,btn){var t=btn.textContent,done=function(s){btn.textContent=s;s
  [].forEach.call(document.querySelectorAll('#bcg .tabs button,#bcg .pane'),function(e){e.classList.remove('on')});
  b.classList.add('on');document.querySelector('#bcg .pane[data-p="'+b.dataset.t+'"]').classList.add('on');if(b.dataset.t==='qr')makeQR();};});
 // 입력하는 즉시 다시 그린다(만들기 버튼 없음)
-$('bcg-val').oninput=makeBar;$('bcg-depth').oninput=makeBar;$('bcg-fmt').onchange=makeBar;
+var SAMPLE={CODE128:'Example 1234',EAN13:'5901234123457',CODE39:'EXAMPLE 1234'};
+$('bcg-val').oninput=makeBar;$('bcg-depth').oninput=makeBar;
+$('bcg-fmt').onchange=function(){var v=$('bcg-val'),isSample=Object.keys(SAMPLE).some(function(k){return SAMPLE[k]===v.value});if(isSample)v.value=SAMPLE[this.value];makeBar();};
 $('bcg-shape').onchange=function(){if(this.value==='upload'&&!userShape)$('bcg-img').click();makeBar();};
 $('bcg-img').onchange=function(){if(this.files[0])readImg(this.files[0],function(im){userShape=im;makeBar();});};
 $('bcg-png').onclick=function(){save($('bcg-cv'),'barcode.png')};$('bcg-copy').onclick=function(){copy($('bcg-cv'),this)};
