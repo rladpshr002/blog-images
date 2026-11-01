@@ -19,19 +19,21 @@
 <div class="tabs"><button type="button" data-t="bar" class="on">바코드 · 모양 바코드</button><button type="button" data-t="qr">QR코드</button></div>
 
 <div class="pane on" data-p="bar">
+ <div class="out"><canvas id="bcg-cv"></canvas></div>
+ <div class="msg" id="bcg-msg"></div>
+ <div class="row"><button type="button" class="btn" id="bcg-copy">이미지 복사</button><button type="button" class="btn sub" id="bcg-png">PNG 저장</button></div>
  <div class="row"><input type="text" id="bcg-val" value="8801234567893" aria-label="바코드 내용"><select id="bcg-fmt" aria-label="바코드 형식"><option value="CODE128">CODE128 (숫자·영문)</option><option value="EAN13">EAN-13 (상품 13자리)</option><option value="CODE39">CODE39</option></select></div>
  <div class="row"><label for="bcg-shape">모양</label><select id="bcg-shape"><option value="none">없음 (일반 바코드)</option><option value="upload">내 그림 올리기</option></select>
-  <input type="file" id="bcg-img" accept="image/*" style="display:none" aria-label="모양으로 쓸 그림"></div>
- <div class="row"><label for="bcg-depth">모양 높이</label><input type="range" id="bcg-depth" min="40" max="160" value="100"><button type="button" class="btn" id="bcg-make">바코드 만들기</button><button type="button" class="btn sub" id="bcg-png">PNG 저장</button></div>
- <div class="msg" id="bcg-msg"></div>
- <div class="out"><canvas id="bcg-cv"></canvas></div>
+  <input type="file" id="bcg-img" accept="image/*" style="display:none" aria-label="모양으로 쓸 그림">
+  <label for="bcg-depth">모양 높이</label><input type="range" id="bcg-depth" min="40" max="160" value="100"></div>
 </div>
 
 <div class="pane" data-p="qr">
- <div class="row"><input type="text" id="bcg-qval" value="https://enoch0.blogspot.com/" aria-label="QR코드 내용"><button type="button" class="btn" id="bcg-qmake">QR 만들기</button></div>
- <div class="row"><label for="bcg-logo">가운데 로고(선택)</label><input type="file" id="bcg-logo" accept="image/*"><button type="button" class="btn sub" id="bcg-qclear">로고 빼기</button><button type="button" class="btn sub" id="bcg-qpng">PNG 저장</button></div>
- <div class="msg" id="bcg-qmsg"></div>
  <div class="out"><canvas id="bcg-qcv"></canvas></div>
+ <div class="msg" id="bcg-qmsg"></div>
+ <div class="row"><button type="button" class="btn" id="bcg-qcopy">이미지 복사</button><button type="button" class="btn sub" id="bcg-qpng">PNG 저장</button></div>
+ <div class="row"><input type="text" id="bcg-qval" value="https://enoch0.blogspot.com/" aria-label="QR코드 내용"></div>
+ <div class="row"><label for="bcg-logo">가운데 로고(선택)</label><input type="file" id="bcg-logo" accept="image/*"><button type="button" class="btn sub" id="bcg-qclear">로고 빼기</button></div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
@@ -68,7 +70,7 @@ function drawShape(g,kind,x,y,w,h){
 function makeBar(){
  var val=$('bcg-val').value.trim(),fmt=$('bcg-fmt').value,kind=$('bcg-shape').value,cv=$('bcg-cv'),msg=$('bcg-msg');
  if(!val){msg.className='msg bad';msg.textContent='바코드 내용을 넣어 주세요.';return;}
- if(kind==='upload'&&!userShape){$('bcg-img').click();return;}
+ if(kind==='upload'&&!userShape)kind='none'; // 그림을 올리기 전에는 일반 바코드로
  var band=80,extra=kind==='none'?0:+$('bcg-depth').value*1.6,m=20,src=document.createElement('canvas');
  try{JsBarcode(src,val,{format:fmt,width:extra?3:2,height:band+extra,margin:m,displayValue:true,fontSize:20,background:'#ffffff'});}
  catch(e){msg.className='msg bad';msg.textContent='이 형식에 맞지 않는 내용입니다. (EAN-13은 숫자 12~13자리)';cv.width=cv.width;return;}
@@ -91,14 +93,19 @@ function makeQR(){
 }
 function readImg(file,cb){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){cb(im)};im.src=r.result};r.readAsDataURL(file);}
 function save(cv,name){var a=document.createElement('a');a.download=name;a.href=cv.toDataURL('image/png');a.click();}
+function copy(cv,btn){var t=btn.textContent,done=function(s){btn.textContent=s;setTimeout(function(){btn.textContent=t},1500)};
+ if(!navigator.clipboard||!window.ClipboardItem){done('이 브라우저는 복사 불가, PNG 저장을 쓰세요');return;}
+ cv.toBlob(function(b){navigator.clipboard.write([new ClipboardItem({'image/png':b})]).then(function(){done('복사됨 \u2713')},function(){done('복사 실패, PNG 저장을 쓰세요')});},'image/png');}
 
 [].forEach.call(document.querySelectorAll('#bcg .tabs button'),function(b){b.onclick=function(){
  [].forEach.call(document.querySelectorAll('#bcg .tabs button,#bcg .pane'),function(e){e.classList.remove('on')});
  b.classList.add('on');document.querySelector('#bcg .pane[data-p="'+b.dataset.t+'"]').classList.add('on');if(b.dataset.t==='qr')makeQR();};});
-$('bcg-make').onclick=makeBar;$('bcg-shape').onchange=makeBar;$('bcg-depth').oninput=makeBar;$('bcg-fmt').onchange=makeBar;
+// 입력하는 즉시 다시 그린다(만들기 버튼 없음)
+$('bcg-val').oninput=makeBar;$('bcg-depth').oninput=makeBar;$('bcg-fmt').onchange=makeBar;
+$('bcg-shape').onchange=function(){if(this.value==='upload'&&!userShape)$('bcg-img').click();makeBar();};
 $('bcg-img').onchange=function(){if(this.files[0])readImg(this.files[0],function(im){userShape=im;makeBar();});};
-$('bcg-png').onclick=function(){save($('bcg-cv'),'barcode.png')};
-$('bcg-qmake').onclick=makeQR;$('bcg-qpng').onclick=function(){save($('bcg-qcv'),'qrcode.png')};
+$('bcg-png').onclick=function(){save($('bcg-cv'),'barcode.png')};$('bcg-copy').onclick=function(){copy($('bcg-cv'),this)};
+$('bcg-qval').oninput=makeQR;$('bcg-qpng').onclick=function(){save($('bcg-qcv'),'qrcode.png')};$('bcg-qcopy').onclick=function(){copy($('bcg-qcv'),this)};
 $('bcg-logo').onchange=function(){if(this.files[0])readImg(this.files[0],function(im){userLogo=im;makeQR();});};
 $('bcg-qclear').onclick=function(){userLogo=null;$('bcg-logo').value='';makeQR();};
 window.bcgTest={shapes:SHAPES,makeBar:makeBar,makeQR:makeQR,scan:scan,setLogo:function(im){userLogo=im}};
