@@ -1,0 +1,49 @@
+<figure><img alt="책상 위 노트북과 빈 말풍선, 체크리스트 메모지 일러스트에 챗GPT 프롬프트 설정 방법, 역할·조건·형식이라고 적힌 대표 이미지(AI 생성 일러스트)" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/chatgpt-prompt-setup/cover-v2.jpg"></figure><p>챗GPT에 &quot;공지 문자 써줘&quot;처럼 한 줄만 보내면 이모지 가득한 긴 안내문이 나오고, 날짜·장소는 '추후 공지'로 비어 있어요. 이번에는 같은 독서 모임 공지를 <strong>[역할] [내용] [조건] [형식]</strong> 네 칸으로 나눠 다시 요청해 봤습니다. 그 결과 5줄짜리 단톡방용 문자가 바로 나왔고, 챗GPT가 요청문 속 잘못된 요일까지 짚어 줬어요.</p>
+<ul>
+<li>한 줄 요청: 길고, 이모지가 많고, 중요한 정보가 빈칸</li>
+<li>네 칸 요청: 원하는 길이·말투·순서 그대로</li>
+<li>마지막에 고칠 점만 한 문장으로 말하면 나머지 조건은 유지</li>
+</ul>
+<h2>준비물</h2>
+<ul>
+<li>챗GPT 계정(무료 요금제로도 가능). 이번 실습은 Windows PC의 Chrome에서 했어요.</li>
+<li>연습 대화를 기록에 남기기 싫다면 새 채팅에서 <strong>임시</strong> 채팅을 켜고 시작하세요. 임시로 둔 대화는 채팅 기록에 남지 않고 모델 개선에도 쓰이지 않아요.</li>
+<li>추가 비용은 없습니다.</li>
+</ul>
+<h2>STEP 1. 한 줄로 먼저 요청해 보기</h2>
+<figure><img alt="챗GPT에 독서 모임 공지 문자 써줘라고 한 줄만 보내자 이모지가 많은 긴 안내문과 추후 공지 빈칸이 돌아온 대화" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/chatgpt-prompt-setup/01-step1.png"><figcaption>한 줄 요청에는 날짜·장소가 '추후 공지'로 비어 있는 긴 안내문이 나왔어요.</figcaption></figure>
+<p>비교를 위해 아무 조건 없이 &quot;독서 모임 공지 문자 써줘&quot;라고 보냈어요.</p>
+<p>답은 인사말과 모임 소개가 길게 이어지고, 일시·장소·책은 모두 '추후 공지'였습니다. 이모지도 여러 개 들어갔어요. 챗GPT가 틀린 게 아니라, 무엇을 원하는지 알려 주지 않았기 때문입니다. OpenAI 도움말도 프롬프트는 <strong>명확하고 구체적으로, 충분한 맥락과 함께</strong> 쓰라고 안내해요.</p>
+<h2>STEP 2. 역할·내용·조건·형식을 나눠 다시 요청하기</h2>
+<figure><img alt="역할·내용·조건·형식을 나눠 보낸 요청에 챗GPT가 5줄 공지와 요일 수정 안내를 답한 대화" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/chatgpt-prompt-setup/02-step2.png"><figcaption>네 칸으로 나눠 보내자 5줄 공지가 나오고, 요일 오류도 짚어 줬어요.</figcaption></figure>
+<p>아래 요청문을 복사해 [대괄호] 안 내용만 바꿔 쓰면 됩니다.</p>
+<pre class="copybox" style="white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f4f6;padding:16px;border-radius:8px;font-size:15px;line-height:1.6">[역할] 너는 10명 규모 동네 독서 모임의 총무야.
+[내용] 11월 모임은 11월 12일(수) 저녁 7시, 구민회관 2층 세미나실, 책은 '어린 왕자'. 11월 10일(월)까지 참석 여부 답장.
+[조건] 단톡방에 올릴 문자, 존댓말, 이모지 없이, 5줄 이내.
+[형식] 첫 줄은 제목, 날짜·장소·책은 한 줄씩.</pre>
+<ul>
+<li><strong>역할:</strong> 누구 입장에서 쓰는지 정하면 말투가 맞춰져요.</li>
+<li><strong>내용:</strong> 날짜·장소처럼 챗GPT가 알 수 없는 사실은 직접 넣어야 합니다.</li>
+<li><strong>조건:</strong> 길이, 말투, 넣지 말 것(이모지 등)을 적어요.</li>
+<li><strong>형식:</strong> 줄 순서나 표·목록 같은 모양을 정해요.</li>
+</ul>
+<p>이번 요청문에는 실수로 요일을 잘못 적었어요(2026년 11월 12일은 목요일, 10일은 화요일). 챗GPT는 공지를 목요일·화요일로 고쳐 쓰고, 아래에 고친 이유를 한 줄 붙였습니다. 날짜가 들어간 공지는 보내기 전에 달력과 꼭 한 번 대조하세요.</p>
+<h2>STEP 3. 고칠 점만 한 문장으로 다시 말하기</h2>
+<figure><img alt="마지막 줄 추가와 요일 설명 삭제를 요청하자 챗GPT가 조건을 유지한 5줄 공지를 답한 대화" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/chatgpt-prompt-setup/03-step3.png"><figcaption>고칠 점만 말해도 앞의 조건은 그대로 유지됐어요.</figcaption></figure>
+<p>처음부터 다시 쓰지 않고, 바꿀 것만 말했어요.</p>
+<pre class="copybox" style="white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f4f6;padding:16px;border-radius:8px;font-size:15px;line-height:1.6">마지막 줄에 '[추가할 문장]'를 넣고, [뺄 부분]은 빼 주세요. 나머지 조건은 그대로요.</pre>
+<p>결과는 제목·일시·장소·도서·답장 안내 5줄 그대로였고, 마지막 줄에 '책을 다 못 읽어도 참석할 수 있습니다'가 붙었어요. &quot;나머지 조건은 그대로&quot;라고 덧붙이면 앞에서 정한 이모지 금지·5줄 제한이 유지됩니다. 이렇게 답을 보고 조금씩 고쳐 가는 방식을 OpenAI 도움말은 <strong>반복해서 다듬기</strong>라고 설명해요.</p>
+<h2>결과 확인과 안 될 때</h2>
+<ul>
+<li><strong>답이 여전히 길다:</strong> [조건]에 &quot;5줄 이내&quot;처럼 숫자로 적으세요. &quot;짧게&quot;보다 기준이 분명해요.</li>
+<li><strong>말투가 마음에 안 든다:</strong> [조건]에 &quot;친근하게&quot;, &quot;격식 있게&quot;처럼 말투를 나타내는 말을 넣으세요. OpenAI 도움말도 이런 형용사로 말투를 정하라고 안내해요.</li>
+<li><strong>날짜·숫자가 틀렸다:</strong> 이번에는 챗GPT가 먼저 짚어 줬지만, 늘 그렇다고 기대하면 안 돼요. 이번처럼 요일이 바뀌었다면 실제 달력과 비교해 맞는 쪽을 쓰세요.</li>
+<li><strong>매번 같은 조건을 쓰기 번거롭다:</strong> 자주 쓰는 말투·형식은 설정의 '맞춤형 지침'에 넣어 둘 수 있어요(모든 요금제). 다만 모든 대화에 바로 적용되니, 이번처럼 한 번만 쓸 조건은 요청문에 적는 편이 낫습니다.</li>
+</ul>
+<section class="references"><h2 style="font-size:16px;color:#4b5563"><span style="font-size:16px;color:#4b5563">참고 자료</span></h2>
+<ul>
+<li><span style="font-size:16px;color:#4b5563"><a href="https://help.openai.com/en/articles/10032626-prompt-engineering-best-practices-for-chatgpt">OpenAI 도움말 — Prompt engineering best practices for ChatGPT</a></span></li>
+<li><span style="font-size:16px;color:#4b5563"><a href="https://help.openai.com/en/articles/8914046-temporary-chat-faq">OpenAI 도움말 — Temporary Chat FAQ</a></span></li>
+<li><span style="font-size:16px;color:#4b5563"><a href="https://help.openai.com/en/articles/8096356-chatgpt-custom-instructions">OpenAI 도움말 — ChatGPT Custom Instructions</a></span></li>
+</ul>
+</section>
