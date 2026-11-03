@@ -18,9 +18,9 @@
 </style>
 <div class="pane on" data-p="bar">
  <div class="row"><button type="button" class="btn" id="bcg-copy">이미지 복사</button><button type="button" class="btn sub" id="bcg-png">PNG 저장</button><button type="button" class="btn sub" id="bcg-print">프린트</button></div>
+ <div class="row"><input type="text" id="bcg-val" value="Code 128" aria-label="바코드 내용"><select id="bcg-fmt" aria-label="바코드 형식"><option value="CODE128">CODE128 (숫자·영문)</option><option value="EAN13">EAN-13 (상품 13자리)</option><option value="CODE39">CODE39</option></select></div>
  <div class="out"><canvas id="bcg-cv"></canvas></div>
  <div class="msg" id="bcg-msg"></div>
- <div class="row"><input type="text" id="bcg-val" value="Code 128" aria-label="바코드 내용"><select id="bcg-fmt" aria-label="바코드 형식"><option value="CODE128">CODE128 (숫자·영문)</option><option value="EAN13">EAN-13 (상품 13자리)</option><option value="CODE39">CODE39</option></select></div>
  <div class="row"><label for="bcg-shape">모양</label><select id="bcg-shape"><option value="none">없음 (일반 바코드)</option><option value="upload">내 그림 올리기</option></select>
   <input type="file" id="bcg-img" accept="image/*" style="display:none" aria-label="모양으로 쓸 그림">
   <label for="bcg-depth">모양 높이</label><input type="range" id="bcg-depth" min="40" max="160" value="100"></div>
@@ -28,9 +28,9 @@
 
 <div class="pane" data-p="qr">
  <div class="row"><button type="button" class="btn" id="bcg-qcopy">이미지 복사</button><button type="button" class="btn sub" id="bcg-qpng">PNG 저장</button><button type="button" class="btn sub" id="bcg-qprint">프린트</button></div>
+ <div class="row"><input type="text" id="bcg-qval" value="https://example.com" aria-label="QR코드 내용"></div>
  <div class="out"><canvas id="bcg-qcv"></canvas></div>
  <div class="msg" id="bcg-qmsg"></div>
- <div class="row"><input type="text" id="bcg-qval" value="https://example.com" aria-label="QR코드 내용"></div>
  <div class="row"><label for="bcg-logo">가운데 로고(선택)</label><input type="file" id="bcg-logo" accept="image/*"><button type="button" class="btn sub" id="bcg-qclear">로고 빼기</button></div>
 </div>
 <div class="tabs"><button type="button" data-t="bar" class="on">바코드 · 모양 바코드</button><button type="button" data-t="qr">QR코드</button></div>
