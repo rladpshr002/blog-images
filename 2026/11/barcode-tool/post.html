@@ -1,9 +1,7 @@
-<figure><img alt="고양이 모양 바코드와 QR코드 카드 위에 무료 바코드 생성기, 모양 바코드·QR까지라고 적힌 대표 이미지(AI 생성 일러스트)" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/barcode-tool/cover.jpg"></figure>
-<p>숫자나 글자를 넣으면 바로 바코드가 만들어집니다. 하트·고양이·집·자동차 모양 바코드와 QR코드도 같은 화면에서 만들고, <b>이미지 복사</b>나 <b>PNG 저장</b>으로 바로 쓸 수 있어요.</p>
 <div id="bcg">
 <style>
 #bcg{font-family:inherit;color:#1f2937;max-width:720px}
-#bcg .tabs{display:flex;gap:6px;margin:0 0 14px}
+#bcg .tabs{display:flex;gap:6px;margin:14px 0 0}
 #bcg .tabs button{flex:1;padding:10px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:8px;font-size:15px;cursor:pointer}
 #bcg .tabs button.on{background:#0f766e;color:#fff;border-color:#0f766e}
 #bcg .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}
@@ -18,25 +16,24 @@
 #bcg .ok{color:#047857}#bcg .bad{color:#b91c1c}
 #bcg .pane{display:none}#bcg .pane.on{display:block}
 </style>
-<div class="tabs"><button type="button" data-t="bar" class="on">바코드 · 모양 바코드</button><button type="button" data-t="qr">QR코드</button></div>
-
 <div class="pane on" data-p="bar">
+ <div class="row"><button type="button" class="btn" id="bcg-copy">이미지 복사</button><button type="button" class="btn sub" id="bcg-png">PNG 저장</button><button type="button" class="btn sub" id="bcg-print">프린트</button></div>
  <div class="out"><canvas id="bcg-cv"></canvas></div>
  <div class="msg" id="bcg-msg"></div>
- <div class="row"><button type="button" class="btn" id="bcg-copy">이미지 복사</button><button type="button" class="btn sub" id="bcg-png">PNG 저장</button></div>
- <div class="row"><input type="text" id="bcg-val" value="Example 1234" aria-label="바코드 내용"><select id="bcg-fmt" aria-label="바코드 형식"><option value="CODE128">CODE128 (숫자·영문)</option><option value="EAN13">EAN-13 (상품 13자리)</option><option value="CODE39">CODE39</option></select></div>
+ <div class="row"><input type="text" id="bcg-val" value="Code 128" aria-label="바코드 내용"><select id="bcg-fmt" aria-label="바코드 형식"><option value="CODE128">CODE128 (숫자·영문)</option><option value="EAN13">EAN-13 (상품 13자리)</option><option value="CODE39">CODE39</option></select></div>
  <div class="row"><label for="bcg-shape">모양</label><select id="bcg-shape"><option value="none">없음 (일반 바코드)</option><option value="upload">내 그림 올리기</option></select>
   <input type="file" id="bcg-img" accept="image/*" style="display:none" aria-label="모양으로 쓸 그림">
   <label for="bcg-depth">모양 높이</label><input type="range" id="bcg-depth" min="40" max="160" value="100"></div>
 </div>
 
 <div class="pane" data-p="qr">
+ <div class="row"><button type="button" class="btn" id="bcg-qcopy">이미지 복사</button><button type="button" class="btn sub" id="bcg-qpng">PNG 저장</button><button type="button" class="btn sub" id="bcg-qprint">프린트</button></div>
  <div class="out"><canvas id="bcg-qcv"></canvas></div>
  <div class="msg" id="bcg-qmsg"></div>
- <div class="row"><button type="button" class="btn" id="bcg-qcopy">이미지 복사</button><button type="button" class="btn sub" id="bcg-qpng">PNG 저장</button></div>
  <div class="row"><input type="text" id="bcg-qval" value="https://example.com" aria-label="QR코드 내용"></div>
  <div class="row"><label for="bcg-logo">가운데 로고(선택)</label><input type="file" id="bcg-logo" accept="image/*"><button type="button" class="btn sub" id="bcg-qclear">로고 빼기</button></div>
 </div>
+<div class="tabs"><button type="button" data-t="bar" class="on">바코드 · 모양 바코드</button><button type="button" data-t="qr">QR코드</button></div>
 
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
@@ -54,9 +51,10 @@ function scan(cv){
   return new ZXing.MultiFormatReader().decode(new ZXing.BinaryBitmap(new ZXing.HybridBinarizer(new ZXing.RGBLuminanceSource(lum,w,h))),hints).getText();
  }catch(e){return null}
 }
+// 잘 읽히면 아무것도 안 띄우고, 문제가 있을 때만 알린다
 function report(el,cv,want){var got=scan(cv);
- el.className='msg '+(got===want?'ok':'bad');
- el.textContent=got===want?'\u2714 스캔 확인: "'+got+'" 으로 읽힙니다.':(got?'\u26a0 다르게 읽힘: "'+got+'"':'\u2716 화면 이미지에서 읽히지 않습니다. 모양 높이를 낮추거나 다른 그림을 써 보세요.');}
+ el.className='msg bad';
+ el.textContent=got===want?'':(got?'\u26a0 다르게 읽힘: "'+got+'"':'\u2716 화면 이미지에서 읽히지 않습니다. 모양 높이를 낮추거나 다른 그림을 써 보세요.');}
 
 // 기본 모양: Phosphor Icons(MIT) 실루엣
 var SHAPES={"heart":{"label":"하트","vb":[0,0,256,256],"d":"M240,102c0,70-103.79,126.66-108.21,129a8,8,0,0,1-7.58,0C119.79,228.66,16,172,16,102A62.07,62.07,0,0,1,78,40c20.65,0,38.73,8.88,50,23.89C139.27,48.88,157.35,40,178,40A62.07,62.07,0,0,1,240,102Z"},"cat":{"label":"고양이","vb":[0,0,256,256],"d":"M222.83,33.54a16,16,0,0,0-18.14,3.15c-.14.14-.26.27-.38.41L187.05,57A111.28,111.28,0,0,0,69,57L51.69,37.1c-.12-.14-.24-.27-.38-.41a16,16,0,0,0-18.14-3.15A16.4,16.4,0,0,0,24,48.46V136c0,49,40.06,89.63,91.56,95.32a4,4,0,0,0,4.44-4v-32l-13.42-13.43a8.22,8.22,0,0,1-.41-11.37,8,8,0,0,1,11.49-.18L128,180.68l10.34-10.35a8,8,0,0,1,11.49.18,8.22,8.22,0,0,1-.41,11.37L136,195.31v32a4,4,0,0,0,4.44,4C191.94,225.62,232,185,232,136V48.46A16.4,16.4,0,0,0,222.83,33.54ZM84,152a12,12,0,1,1,12-12A12,12,0,0,1,84,152Zm20-64a8,8,0,1,1-16,0V69a8,8,0,0,1,16,0Zm32,0a8,8,0,1,1-16,0V64a8,8,0,0,1,16,0Zm16,0V69a8,8,0,0,1,16,0V88a8,8,0,1,1-16,0Zm20,64a12,12,0,1,1,12-12A12,12,0,0,1,172,152Z"},"house":{"label":"집","vb":[0,0,256,256],"d":"M224,120v96a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V164a4,4,0,0,0-4-4H108a4,4,0,0,0-4,4v52a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V120a16,16,0,0,1,4.69-11.31l80-80a16,16,0,0,1,22.62,0l80,80A16,16,0,0,1,224,120Z"},"car-profile":{"label":"자동차","vb":[0,0,256,256],"d":"M240,112H211.31L168,68.69A15.86,15.86,0,0,0,156.69,64H44.28A16,16,0,0,0,31,71.12L1.34,115.56A8.07,8.07,0,0,0,0,120v48a16,16,0,0,0,16,16H33a32,32,0,0,0,62,0h66a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V128A16,16,0,0,0,240,112ZM44.28,80H156.69l32,32H23ZM64,192a16,16,0,1,1,16-16A16,16,0,0,1,64,192Zm128,0a16,16,0,1,1,16-16A16,16,0,0,1,192,192Z"}};
@@ -95,6 +93,10 @@ function makeQR(){
 }
 function readImg(file,cb){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){cb(im)};im.src=r.result};r.readAsDataURL(file);}
 function save(cv,name){var a=document.createElement('a');a.download=name;a.href=cv.toDataURL('image/png');a.click();}
+// 숨은 틀에 이미지만 넣어 인쇄 창을 연다
+function printImg(cv){var f=document.createElement('iframe');f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';document.body.appendChild(f);
+ var d=f.contentDocument;d.open();d.write('<!doctype html><title>print</title><body style="margin:0;text-align:center"><img style="max-width:100%">');d.close();
+ var im=d.querySelector('img');im.onload=function(){f.contentWindow.focus();f.contentWindow.print();setTimeout(function(){f.remove()},60000);};im.src=cv.toDataURL('image/png');}
 function copy(cv,btn){var t=btn.textContent,done=function(s){btn.textContent=s;setTimeout(function(){btn.textContent=t},1500)};
  if(!navigator.clipboard||!window.ClipboardItem){done('이 브라우저는 복사 불가, PNG 저장을 쓰세요');return;}
  cv.toBlob(function(b){navigator.clipboard.write([new ClipboardItem({'image/png':b})]).then(function(){done('복사됨 \u2713')},function(){done('복사 실패, PNG 저장을 쓰세요')});},'image/png');}
@@ -103,7 +105,7 @@ function copy(cv,btn){var t=btn.textContent,done=function(s){btn.textContent=s;s
  [].forEach.call(document.querySelectorAll('#bcg .tabs button,#bcg .pane'),function(e){e.classList.remove('on')});
  b.classList.add('on');document.querySelector('#bcg .pane[data-p="'+b.dataset.t+'"]').classList.add('on');if(b.dataset.t==='qr')makeQR();};});
 // 입력하는 즉시 다시 그린다(만들기 버튼 없음)
-var SAMPLE={CODE128:'Example 1234',EAN13:'5901234123457',CODE39:'EXAMPLE 1234'};
+var SAMPLE={CODE128:'Code 128',EAN13:'5901234123457',CODE39:'EXAMPLE 1234'};
 $('bcg-val').oninput=makeBar;$('bcg-depth').oninput=makeBar;
 $('bcg-fmt').onchange=function(){var v=$('bcg-val'),isSample=Object.keys(SAMPLE).some(function(k){return SAMPLE[k]===v.value});if(isSample)v.value=SAMPLE[this.value];makeBar();};
 $('bcg-shape').onchange=function(){if(this.value==='upload'&&!userShape)$('bcg-img').click();makeBar();};
@@ -111,6 +113,7 @@ $('bcg-img').onchange=function(){if(this.files[0])readImg(this.files[0],function
 $('bcg-png').onclick=function(){save($('bcg-cv'),'barcode.png')};$('bcg-copy').onclick=function(){copy($('bcg-cv'),this)};
 $('bcg-qval').oninput=makeQR;$('bcg-qpng').onclick=function(){save($('bcg-qcv'),'qrcode.png')};$('bcg-qcopy').onclick=function(){copy($('bcg-qcv'),this)};
 $('bcg-logo').onchange=function(){if(this.files[0])readImg(this.files[0],function(im){userLogo=im;makeQR();});};
+$('bcg-print').onclick=function(){printImg($('bcg-cv'))};$('bcg-qprint').onclick=function(){printImg($('bcg-qcv'))};
 $('bcg-qclear').onclick=function(){userLogo=null;$('bcg-logo').value='';makeQR();};
 makeBar();
 })();
