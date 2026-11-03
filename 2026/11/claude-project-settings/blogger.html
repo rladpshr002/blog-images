@@ -1,0 +1,47 @@
+<figure><img alt="책상 위 노트북과 말풍선, 톱니바퀴, 규칙 메모 카드 일러스트 위에 클로드 설정 방법 문구가 적힌 대표 이미지(AI 생성 일러스트)" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/claude-project-settings/cover-v2.jpg"></figure><p>클로드(Claude)에 매번 &quot;표로 정리해 줘, 해요체로, 설명은 짧게&quot;를 붙여 넣고 있다면 <strong>프로젝트 지침</strong>에 한 번만 적어 두면 됩니다. 지침은 그 프로젝트 안의 <strong>모든 대화</strong>에 적용돼요. 이번에는 '장보기 메모 정리' 프로젝트를 만들고 지침 5줄을 저장한 뒤, 새 대화 두 번에 메모만 붙여 넣어 <strong>같은 3칸 표</strong>로 답이 오는지 확인해 봤습니다.</p>
+<ul>
+<li>만들기: claude.ai/projects → <strong>새 프로젝트</strong> → 이름·목표 → <strong>프로젝트 생성</strong></li>
+<li>규칙 저장: 프로젝트 화면 오른쪽 <strong>지침 → 추가</strong> → 규칙 입력 → <strong>지침 저장</strong></li>
+<li>사용: 그 프로젝트 안에서 새 대화를 열면 매번 같은 규칙으로 답함</li>
+</ul>
+<h2>준비물</h2>
+<ul>
+<li>Claude 계정. 무료 계정도 프로젝트를 쓸 수 있고, 무료는 <strong>최대 5개</strong>까지 만들 수 있어요.</li>
+<li>PC 브라우저. 이번 실습은 Windows의 Chrome에서 claude.ai로 했어요.</li>
+<li>설치할 프로그램은 없습니다.</li>
+</ul>
+<h2>STEP 1. 새 프로젝트 만들기</h2>
+<p>claude.ai/projects에 들어가 오른쪽 위 <strong>새 프로젝트</strong>를 누릅니다. '프로젝트 생성' 창이 뜨면 두 칸을 채워요.</p>
+<ul>
+<li><strong>무엇을 작업 중이신가요?</strong> → 프로젝트 이름. 이번에는 '장보기 메모 정리'</li>
+<li><strong>어떤 목표를 달성하려고 하시나요?</strong> → '뒤죽박죽 적은 장보기 메모를 매번 같은 표 형식으로 정리하기'</li>
+</ul>
+<p>아래 <strong>프로젝트 생성</strong>을 누르면 프로젝트 화면으로 넘어갑니다. 공식 도움말에 따르면 이 이름과 설명은 Claude가 읽지 않아요. 답변 규칙은 다음 단계의 지침에 따로 적어야 합니다.</p><figure><img alt="Claude 프로젝트 생성 창에 프로젝트 이름 장보기 메모 정리와 목표 문장을 입력한 화면" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/claude-project-settings/01-step1-new-project.jpg"><figcaption>이름과 목표를 적고 프로젝트 생성을 눌러요.</figcaption></figure>
+<h2>STEP 2. '지침'에 답변 규칙 적고 저장하기</h2>
+<p>프로젝트 화면 오른쪽에 <strong>지침 / 컨텍스트 / 메모리 / 예정됨</strong> 줄이 있어요. 맨 위 <strong>지침</strong> 줄의 <strong>추가</strong>를 누르면 '프로젝트 지침 설정' 창이 열립니다. 여기에 아래처럼 규칙을 적고 <strong>지침 저장</strong>을 눌렀어요.</p><figure><img alt="프로젝트 지침 설정 창에 답변 규칙 다섯 줄을 입력하고 오른쪽 아래 지침 저장 버튼이 보이는 화면" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/claude-project-settings/02-step2-instructions.jpg"><figcaption>지침 → 추가를 누르면 열리는 프로젝트 지침 설정 창</figcaption></figure>
+<p><strong>복사해서 사용할 요청문</strong></p>
+<pre class="copybox" style="white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f4f6;padding:16px;border-radius:8px;font-size:15px;line-height:1.6">- 한국어 해요체로 답해 주세요.
+- 장보기 메모를 받으면 '품목 | 수량 | 매장 구역' 세 칸 표로 정리해 주세요.
+- 매장 구역은 채소·과일 / 정육·수산 / 유제품 / 가공식품 / 생활용품 중에서 고르고, 같은 구역끼리 모아 주세요.
+- 메모에 수량이 없으면 '확인 필요'라고 적어 주세요.
+- 인사말과 긴 설명은 빼고, 표 아래에 품목 개수만 한 줄로 알려 주세요.</pre>
+<p>장보기가 아니라면 [표의 칸 이름]과 [고를 수 있는 분류]만 내 일에 맞게 바꾸면 돼요. 규칙은 한 줄에 하나씩, '~해 주세요'처럼 행동으로 적으면 결과를 확인하기 쉽습니다.</p>
+<h2>STEP 3. 메모만 붙여 넣고 첫 답 받기</h2>
+<p>프로젝트 화면 가운데 입력칸('장보기 메모 정리의 새 세션')에 메모를 <strong>설명 없이</strong> 그대로 넣고 Enter를 눌렀어요. &quot;표로 만들어 줘&quot; 같은 말은 붙이지 않았습니다.</p>
+<p>답은 지침대로 <strong>품목 | 수량 | 매장 구역</strong> 표로 왔어요. 수량을 안 적은 대파·사과·치약은 '확인 필요'로, 같은 구역끼리 모였고, 맨 아래는 '총 10개 품목이에요.' 한 줄뿐이었습니다.</p><figure><img alt="장보기 메모를 보내자 품목, 수량, 매장 구역 세 칸으로 10개 품목을 정리하고 총 10개 품목이에요로 끝난 Claude 답변" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/claude-project-settings/03-step3-first-chat.png"><figcaption>첫 번째 메모와 답. 대화 글자를 그대로 옮겨 만든 이미지예요.</figcaption></figure>
+<h2>STEP 4. 새 대화에서도 같은 형식인지 확인하기</h2>
+<p>지침이 정말 '매번' 적용되는지 보려고 프로젝트 화면으로 돌아가 <strong>새 대화</strong>를 열고 다른 메모를 넣었어요. 이번에도 같은 3칸 표, 같은 구역 순서, '총 6개 품목이에요.'로 끝났습니다. 대화가 바뀌어도 규칙을 다시 말할 필요가 없다는 뜻이에요.</p><figure><img alt="새 대화에서 다른 장보기 메모를 보내자 같은 세 칸 표로 6개 품목을 정리한 Claude 답변" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/claude-project-settings/04-step4-second-chat.png"><figcaption>새 대화의 두 번째 메모와 답. 대화 글자를 그대로 옮겨 만든 이미지예요.</figcaption></figure>
+<h2>STEP 5. 규칙을 고치고 싶을 때</h2>
+<p>지침을 저장하면 오른쪽 <strong>지침</strong> 줄의 버튼이 '추가'에서 <strong>편집</strong>으로 바뀝니다. 편집을 눌러 같은 창에서 문장을 고치고 다시 저장하면 됩니다. 지금까지 연 대화는 '최근 항목' 아래에 모여 있습니다.</p><figure><img alt="프로젝트 화면 오른쪽 지침 줄의 버튼이 편집으로 바뀌고 가운데 최근 항목에 장보기 목록 대화가 보이는 화면" src="https://raw.githubusercontent.com/rladpshr002/blog-images/main/2026/11/claude-project-settings/05-step5-project-page.jpg"><figcaption>지침을 저장하면 오른쪽 지침 줄이 '편집'으로 바뀌어요.</figcaption></figure>
+<h2>안 될 때 확인할 것</h2>
+<ul>
+<li><strong>지침이 적용되지 않아요:</strong> 프로젝트 <strong>밖</strong>의 일반 새 채팅에서 물어본 경우예요. 지침은 그 프로젝트 안의 대화에만 적용됩니다. 프로젝트 화면의 입력칸에서 시작하세요.</li>
+<li><strong>앞 대화에서 정리한 내용을 기억하지 못해요:</strong> 같은 프로젝트라도 대화끼리 내용은 공유되지 않아요. 계속 참고할 자료는 오른쪽 <strong>컨텍스트</strong>에 올려 프로젝트 지식으로 넣어야 합니다.</li>
+<li><strong>무료 계정에서 새 프로젝트가 안 만들어져요:</strong> 무료는 프로젝트가 최대 5개예요. 안 쓰는 프로젝트를 정리한 뒤 만드세요.</li>
+<li><strong>분류가 애매한 품목이 있어요:</strong> 이번 두 번째 메모의 항아리처럼 구역 목록에 딱 맞지 않는 품목은 Claude가 골라 넣었어요(생활용품). 원하는 구역이 따로 있으면 그 규칙을 지침에 한 줄 더 적어 두세요.</li>
+</ul>
+<section class="references"><h2 style="font-size:16px;color:#4b5563"><span style="font-size:16px;color:#4b5563">참고 자료</span></h2>
+<ul>
+<li><span style="font-size:16px;color:#4b5563"><a href="https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects">Claude 고객센터 — How can I create and manage projects?</a></span></li>
+</ul>
+</section>
